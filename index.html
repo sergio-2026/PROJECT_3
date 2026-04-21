@@ -2,42 +2,63 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Status Manager Project</title>
-    <!-- Link to the CSS file for styling (Task 2) -->
+    <title>Project 3: Status Manager</title>
+    <!-- Link to our CSS file -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="app-container">
-      <!-- Main Title (Task 1) -->
-      <h1 id="main-title">Status Manager</h1>
+    <!-- Main page title that JavaScript will change (Task 3, 7) -->
+    <h1 id="main-title">DOM Project: Starter</h1>
 
-      <div id="control-panel">
-        <!-- Toggle Anchor Tag (Task 1 & Task 4 attribute modification target) -->
-        <a id="toggle-button" href="#">Click to Update Status</a>
+    <main>
+      <!-- Status section with toggle link and output box -->
+      <section class="card">
+        <h2>Status Panel</h2>
+        <p>
+          Click the link to show or hide the status box. When it shows, a time
+          stamp will be added.
+        </p>
 
-        <!-- Timer Button (Task 1 & Task 10 event listener target) -->
-        <button id="timer-button">Start Timer</button>
-      </div>
+        <!-- This link is the toggle button (Task 4, 5, 6) -->
+        <a href="#" id="toggle-button">Toggle Status</a>
 
-      <!-- Status Output Div (Task 1). Initially hidden via CSS class (Task 2) -->
-      <div id="status-output" class="hidden">
-        <p>Current Status Information:</p>
-        <!-- Task 8 will append elements here -->
-      </div>
+        <!-- This box starts hidden using the .hidden class (Task 2, 5, 7, 8) -->
+        <div id="status-output" class="hidden">
+          Status is now visible.
+        </div>
+      </section>
 
-      <!-- Unordered List (Task 1 & Task 9 iteration target) -->
-      <h2>Item List</h2>
-      <ul id="item-list">
-        <li>List Item One</li>
-        <li>List Item Two</li>
-        <li>List Item Three</li>
-        <li>List Item Four</li>
-        <li>List Item Five</li>
-      </ul>
-    </div>
+      <!-- Simple list that we will style with JavaScript (Task 9) -->
+      <section class="card">
+        <h2>Item List</h2>
+        <ul id="item-list">
+          <li>First thing to watch</li>
+          <li>Second thing to watch</li>
+          <li>Third thing to watch</li>
+        </ul>
+      </section>
 
-    <!-- Link to the JavaScript file for interactivity -->
+      <!-- Control panel that will flash on a timer (Task 10) -->
+      <section class="card">
+        <h2>Control Panel Timer</h2>
+
+        <!-- This box will flash on and off -->
+        <div id="control-panel">
+          <p>This panel will flash on and off when the timer is running.</p>
+        </div>
+
+        <!-- One button controls the timer
+             click  = startFlashing
+             dblclick = stopFlashing -->
+        <button id="timer-button">Timer Button</button>
+
+        <p class="hint">
+          Tip: Click the button to start the flash. Double‑click to stop it.
+        </p>
+      </section>
+    </main>
+
+    <!-- JavaScript file goes at the bottom so HTML loads first -->
     <script src="script.js"></script>
   </body>
 </html>

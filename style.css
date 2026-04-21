@@ -1,40 +1,69 @@
+/* =======================================
+   Base page styles
+   ======================================= */
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  padding-top: 20px;
-}
-
-#app-container {
-  width: 90%;
-  max-width: 600px;
-  margin: 0 auto;
-  background: white;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f3f3f3;
+  margin: 0;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#status-output {
-  border: 1px solid #ccc;
-  padding: 15px;
-  margin-top: 15px;
-  background-color: #e0f7fa;
+/* Simple card box for each section */
+.card {
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  padding: 16px;
+  margin: 16px auto;
+  max-width: 700px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-#control-panel button,
-#control-panel a {
-  padding: 10px 15px;
-  margin: 5px;
-  cursor: pointer;
+.card h2 {
+  margin-top: 0;
+  border-bottom: 1px solid #eeeeee;
+  padding-bottom: 8px;
+}
+
+/* Make the main title stand out a little */
+#main-title {
+  text-align: center;
+  margin-top: 0;
+  padding: 12px;
+}
+
+/* Small hint text under the timer button */
+.hint {
+  font-size: 0.9em;
+  color: #555555;
+}
+
+/* =======================================
+   Task 2: .hidden class
+   This class hides an element by removing
+   it from the page layout.
+   ======================================= */
+
+.hidden {
+  display: none; /* element does not take up space or show */
+}
+
+/* Basic look for the toggle link and timer button */
+#toggle-button,
+#timer-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 14px;
+  background-color: #1a4f8f;
+  color: #ffffff;
+  text-decoration: none;
   border: none;
   border-radius: 4px;
-  text-decoration: none;
-  display: inline-block; /* Ensure anchor tag acts like a button */
+  cursor: pointer;
 }
 
-/* --- Task 2 Requirement: The Hiding Class --- */
-/* This class must be defined to enable the toggle functionality later. */
-.hidden {
-  /* Sets the element to be completely invisible and not take up space. */
-  display: none;
+/* Make the link look like a button when hovered */
+#toggle-button:hover,
+#timer-button:hover {
+  background-color: #163f71;
 }
