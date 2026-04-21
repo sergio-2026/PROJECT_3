@@ -1,149 +1,183 @@
 // =======================================
 // Task 1: Verification
-// Make sure the script file is running.
+// This message shows in the browser console
+// to prove the script is loaded and working.
 // =======================================
 
-// This message should show in the browser console.
 console.log("Status Manager Started");
 
 // =======================================
-// Setup: grab important elements once
-// We will reuse these in many tasks.
+// Setup: grab all the page elements once.
+// We save them in variables so we don't have
+// to search for them every time.
 // =======================================
 
-var mainTitle = document.getElementById("main-title");       // <h1> at the top
-var toggleButton = document.getElementById("toggle-button"); // link that toggles status
-var statusDiv = document.getElementById("status-output");    // box that shows status
-var timerButton = document.getElementById("timer-button");   // button for timer
-var controlPanel = document.getElementById("control-panel"); // box that flashes
+var mainTitle       = document.getElementById("main-title");
+var toggleButton    = document.getElementById("toggle-button");
+var statusDiv       = document.getElementById("status-output");           // basic box
+var statusDivAdv    = document.getElementById("status-output-advanced");  // advanced box
+var timerButton     = document.getElementById("timer-button");
+var controlPanel    = document.getElementById("control-panel");
 
-// This will hold the id returned by setInterval (Task 10).
+// This holds the timer ID so we can stop it later (Task 10).
 var flashIntervalId = null;
 
 // =======================================
 // Task 3: Modify Content on Load
-// Change the main title text when page loads.
+// Change the main title when the page loads.
+// innerHTML lets us write new text into the element.
 // =======================================
 
-// innerHTML lets us replace the inside of the <h1> tag.
 mainTitle.innerHTML = "DOM Project: Ready!";
 
 // =======================================
 // Task 4: Manipulate Attributes
-// Add a custom data-action attribute to the toggle link.
+// Add a custom data-action attribute to the link.
+// setAttribute(name, value) sets any attribute we want.
 // =======================================
 
-// setAttribute(name, value) adds or changes an attribute.
 toggleButton.setAttribute("data-action", "status-toggle");
 
 // =======================================
-// Task 5, 6, 7, 8: Toggle Status Box
-// - Show / hide the status box
-// - Stop link default behavior
-// - Change title background color
-// - Add a time stamp when it becomes visible
+// Task 5 + 6 + 7 + 8: Toggle Status Box
+// This function runs every time the toggle link
+// is clicked. It shows or hides both output boxes
+// and calls BOTH timestamp functions at once.
 // =======================================
 
 function toggleStatus(e) {
-  // Task 6: Prevent the link from jumping to top or reloading.
+
+  // Task 6: Stop the link from jumping the page.
   e.preventDefault();
 
-  // Remember if the box was hidden before we toggle it.
+  // Remember if the boxes were hidden BEFORE we toggle.
   var wasHidden = statusDiv.classList.contains("hidden");
 
-  // Task 5: Toggle the .hidden class to hide or show the box.
+  // Task 5: Toggle the .hidden class on BOTH boxes at the same time.
   statusDiv.classList.toggle("hidden");
+  statusDivAdv.classList.toggle("hidden");
 
-  // Now check if the box is hidden after the toggle.
+  // Check if the boxes are hidden NOW (after the toggle).
   var isHiddenNow = statusDiv.classList.contains("hidden");
 
-  // Task 7: Change the title's background color based on visibility.
-  // If the box is visible, make the title background yellow.
+  // Task 7: Change the title background color.
+  // Yellow when visible, cleared when hidden.
   if (!isHiddenNow) {
     mainTitle.style.backgroundColor = "yellow";
   } else {
-    // If the box is hidden, clear the background color.
     mainTitle.style.backgroundColor = "";
   }
 
-  // Task 8: If it was hidden and now is visible, add a time stamp.
+// ===========================================================================
+// ===========================================================================
+// ===========================================================================
+// My Project 3 Modification to be able to present to class
+// I added a second output box to demonstrate different JavaScript methods
+
+  // Task 8: Add a time stamp only when the boxes just became visible.
+  // We call BOTH functions here so both boxes get a stamp at the same time.
   if (wasHidden && !isHiddenNow) {
-    createTimestamp();
+    createTimestampBasic();     // writes to the blue box
+    createTimestampAdvanced();  // writes to the red box
   }
+
 }
 
-// Connect the toggleStatus function to the link's click event.
+// Connect the function to the click event on the toggle link.
 toggleButton.addEventListener("click", toggleStatus);
 
 // =======================================
-// Task 8: Dynamic Element Creation
-// Make a new <span> with the current time and
-// add it inside the status box.
+// Task 8 - BASIC VERSION (Class Way)
+// Step 1: Create a new element with createElement.
+// Step 2: Set its text with innerHTML.
+// Step 3: Attach it to the page with appendChild.
 // =======================================
 
-function createTimestamp() {
-  // 1. Make a new span element.
+function createTimestampBasic() {
+  // Step 1: Make a brand new <span> tag (not on the page yet).
   var timeSpan = document.createElement("span");
 
-  // 2. Set its text to the current time.
-  //    toLocaleTimeString() returns a human-friendly time.
+  // Step 2: Put the current time inside that span.
   timeSpan.innerHTML = " [" + new Date().toLocaleTimeString() + "]";
 
-  // 3. Put the new span at the end of the status box.
+  // Step 3: Add the span to the end of the BASIC output box.
   statusDiv.appendChild(timeSpan);
 }
 
 // =======================================
+// Task 8 - ADVANCED VERSION (New Method)
+// insertAdjacentHTML lets you drop an HTML string
+// directly into the page in one single step.
+// This method was NOT covered in class 
+// =======================================
+
+function createTimestampAdvanced() {
+  // Build the HTML we want to insert as a string.
+  var html = " [" + new Date().toLocaleTimeString() + "]";
+
+  // insertAdjacentHTML(position, htmlString)
+  // "beforeend" means: go inside this element, at the very end.
+  // The browser reads the string and creates the real HTML for us.
+  // No separate createElement or appendChild needed.
+  statusDivAdv.insertAdjacentHTML("beforeend", "<span>" + html + "</span>");
+}
+// ===========================================================================
+// ===========================================================================
+// ===========================================================================
+
+// =======================================
 // Task 9: Loops and Node Lists
-// Turn all list items blue when the page loads.
+// Select all list items and turn them blue.
+// querySelectorAll returns a list of every match.
+// We loop through the list and set each item's color.
 // =======================================
 
 function highlightListItems() {
-  // Get all <li> elements inside the item-list.
+  // Get every <li> inside the item-list.
   var listItems = document.querySelectorAll("#item-list li");
 
-  // Loop through each item and change its color.
+  // Loop through each one and set the text color to blue.
   for (var i = 0; i < listItems.length; i++) {
-    // style.color sets the text color directly on the element.
     listItems[i].style.color = "blue";
   }
 }
 
-// Run this function once right after the script loads.
+// Run this once right when the page loads.
 highlightListItems();
 
 // =======================================
 // Task 10: The Flashing Timer
-// Use setInterval and clearInterval to flash
-// the control-panel on and off.
+// setInterval runs a function over and over
+// every X milliseconds until we stop it.
+// clearInterval uses the saved ID to stop it.
 // =======================================
 
 function startFlashing() {
-  // If the timer is already running, do nothing.
+  // Don't start a second timer if one is already running.
   if (flashIntervalId !== null) {
     return;
   }
 
-  // setInterval runs the function every 500 milliseconds.
+  // Run this function every 500 milliseconds.
+  // Save the returned ID so we can stop it later.
   flashIntervalId = setInterval(function () {
-    // Toggle .hidden so the panel shows and hides again and again.
+    // Toggle .hidden so the panel blinks on and off.
     controlPanel.classList.toggle("hidden");
   }, 500);
 }
 
 function stopFlashing() {
-  // Only stop if the timer is running.
+  // Only stop if a timer is actually running.
   if (flashIntervalId !== null) {
-    // clearInterval stops the repeating timer.
+    // clearInterval uses the saved ID to cancel the timer.
     clearInterval(flashIntervalId);
     flashIntervalId = null;
 
-    // Make sure the panel is visible when we stop.
+    // Make sure the panel is fully visible when we stop.
     controlPanel.classList.remove("hidden");
   }
 }
 
-// Bind the timer functions to the timer button events.
 // Single click starts the flashing.
 timerButton.addEventListener("click", startFlashing);
 
